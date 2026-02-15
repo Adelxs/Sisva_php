@@ -252,7 +252,7 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
     <p>Total Usuarios</p>
     <h2 id="total-usuarios">--</h2>
 </div>
-        <div class="small-box">siiiii funciona</div>
+        <div class="small-box">siiiii funciona el automatico</div>
         <div class="small-box">
     <p>Reportes Totales</p>
     <h2 id="total-reportes">--</h2>
