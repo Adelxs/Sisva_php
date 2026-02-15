@@ -1,0 +1,323 @@
+
+<?php
+session_start();
+
+if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administrador') {
+    header("Location: login_general.php");
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administrador</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: Arial, sans-serif;
+        }
+
+        /* ===== LAYOUT ===== */
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+           display: flex;
+    flex-direction: column; /* Muy importante */
+    justify-content: flex-start; /* Los elementos se colocan de arriba hacia abajo */
+    background: #1e293b;
+    color: white;
+    width: 260px;
+    padding: 20px;
+    min-height: 100vh; /* Ocupa toda la altura */
+        }
+
+        .sidebar .logo {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 12px;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .logout {
+            color: #ff6b6b;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== NAVBAR SUPERIOR ===== */
+        .top-navbar {
+            background: white;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-navbar .title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .top-navbar .menu-right {
+            margin-left: auto;
+        }
+
+        .top-navbar .menu-right a {
+            text-decoration: none;
+            color: #333;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        /* ===== CONTENIDO ===== */
+        .content {
+            padding: 30px;
+            background: #f4f4f4;
+            flex: 1;
+        }
+
+        /* ===== FILA SUPERIOR ===== */
+        .top-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* DIVS PEQUEÑOS */
+        .small-box {
+            flex: 1;               /* Se reparten igual */
+            border: 3px solid rgb(96, 165, 250);
+            padding: 20px;
+            height: 116px;
+            text-align: center;
+            font-weight: bold;
+            
+        }
+
+        /* DIV GRANDE */
+        .big-box {
+            width: 100%;           /* Ocupa todo el ancho */
+           
+            padding: 20px;
+            height: 474px;
+            text-align: center;
+            font-weight: bold;
+            border: 3px solid rgb(96, 165, 250);
+                 /* 🔥 Aquí controlas el alto */
+        }
+
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .top-navbar {
+                padding: 0 10px;
+            }
+
+            .top-navbar .menu-right a {
+                margin-left: 10px;
+            }
+        }
+
+        .vol {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid oklch(0.707 0.022 261.325);
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Botón de cerrar sesión al final del sidebar */
+.logout-btn {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid oklch(0.707 0.022 261.325);
+    font-size: 16px;
+    cursor: pointer;
+
+    background: transparent; /* Fondo transparente */
+    color: white;
+
+    /* Posicionamiento */
+    margin-top: auto; /* Esto lo empuja hacia abajo automáticamente */
+    display: block;
+}
+
+/* Línea divisoria del Sidebar */
+.sidebar-divider {
+    border: 0;
+    border-top: 1px solid #475569; /* Gris azulado que combina con el fondo */
+    margin-bottom: 20px;           /* Espacio hacia abajo (menú) */
+    margin-top: 10px;              /* Los 10px de margen desde el título */
+    width: 100%;                   /* Ancho total del sidebar */
+}
+
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- MENÚ LATERAL -->
+   <nav class="sidebar">
+    <div class="logo">Panel de Administración</div>
+    <hr class="sidebar-divider">
+    <ul class="menu">
+        
+        <li><a href="ver_usuarios.php">Gestión de Usuarios</a></li>
+        <li><a href="gestion_qr.php">Gestión de QR</a></li>
+        <li><a href="leer_reportes_admin.php">Reportes de Incidencias</a></li>
+        <li><a href="logs_acceso.php">Logs de Acceso</a></li>
+        <li><a href="calendario_admin.php">Calendario y Dias Festivos</a></li>
+        <li><a href="perfil_administrador.php">Perfil Administrador</a></li>
+        <li><a href="panel_qr_admin.php">Generar mi QR</a></li>
+        <li><a href="descargar_apk.php">Descargar APK</a></li>
+    </ul>
+
+    <!-- Botón Cerrar Sesión -->
+    <button class="logout-btn" type="button" onclick="window.location.href='login_general.php'">
+        CERRAR SESIÓN
+    </button>
+</nav>
+
+
+    <!-- ÁREA PRINCIPAL -->
+    <div class="main-area">
+
+        <!-- NAVBAR SUPERIOR -->
+        <div class="top-navbar">
+            <div class="title">Resumen del panel</div>
+            <div class="menu-right">
+                <a href="#">Notificaciones</a>
+                <a href="#">Perfil</a>
+            </div>
+        </div>
+
+        <!-- CONTENIDO -->
+        <!-- CONTENIDO -->
+<main class="content">
+
+    <!-- FILA SUPERIOR: 4 DIVS -->
+    <div class="top-row">
+        <div class="small-box" id="box-usuarios">
+    <p>Total Usuarios</p>
+    <h2 id="total-usuarios">--</h2>
+</div>
+        <div class="small-box">Box 2</div>
+        <div class="small-box">
+    <p>Reportes Totales</p>
+    <h2 id="total-reportes">--</h2>
+</div>
+        <div class="small-box">
+    <p>Total Escaneos QR</p>
+    <h2 id="total-escaneos">--</h2>
+</div>
+    </div>
+
+    <!-- DIV GRANDE ABAJO -->
+    <div class="big-box">Div Grande</div>
+
+</main>
+
+
+    </div>
+</div>
+
+<script>
+/*async function obtenerConteoUsuarios() {
+    try {
+        const res = await fetch('https://sisvaqr-production.up.railway.app/usuarios/conteo');
+        const data = await res.json();
+        
+        if (data.ok) {
+            document.getElementById('total-usuarios').innerText = data.total;
+        }
+    } catch (error) {
+        console.error("Error obteniendo conteo:", error);
+        document.getElementById('total-usuarios').innerText = "err";
+    }
+}*/
+
+async function obtenerEstadisticas() {
+    try {
+        // 1. Conteo de Usuarios
+        const resUsers = await fetch('https://sisvaqr-production.up.railway.app/usuarios/conteo');
+        const dataUsers = await resUsers.json();
+        if (dataUsers.ok) document.getElementById('total-usuarios').innerText = dataUsers.total;
+
+        // 2. Conteo de Escaneos
+        const resQR = await fetch('https://sisvaqr-production.up.railway.app/historial/conteo-escaneos');
+        const dataQR = await resQR.json();
+        if (dataQR.ok) document.getElementById('total-escaneos').innerText = dataQR.total;
+
+        // 3. Conteo de Reportes (Lo nuevo)
+        const resRep = await fetch('https://sisvaqr-production.up.railway.app/reportes/conteo');
+        const dataRep = await resRep.json();
+        if (dataRep.ok) {
+            document.getElementById('total-reportes').innerText = dataRep.total;
+        }
+
+    } catch (error) {
+        console.error("Error obteniendo estadísticas:", error);
+    }
+}
+
+// Ejecutar de inmediato
+obtenerEstadisticas();
+
+// Actualizar cada 10 segundos
+setInterval(obtenerEstadisticas, 10000);
+/*obtenerConteoUsuarios();*/
+</script>
+
+</body>
+</html>
