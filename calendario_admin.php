@@ -20,7 +20,7 @@
             border-bottom: 4px solid rgb(15, 23, 42);
             width: 100%;
             z-index: 1000;
-            height: 65px;
+            height: 62px;
          }
 
         .navbar-inner {
