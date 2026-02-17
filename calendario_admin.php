@@ -5,7 +5,52 @@
     <title>Panel de Control - Calendario y Feriados</title>
     <style>
         :root { --primary: #2563eb; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); display: flex; justify-content: center; gap: 20px; padding: 20px; flex-wrap: wrap; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+
+         .navbar {
+            background-color: rgb(30, 41, 59);
+            color: rgb(255, 255, 255);
+            display: flex;
+            justify-content: center;
+            border-bottom: 4px solid rgb(15, 23, 42);
+            width: 100%;
+            z-index: 1000;
+            height: 65px;
+         }
+
+        .navbar-inner {
+            width: 100%;
+            max-width: 950px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 34px;
+        }
+
+        .navbar .logo {
+            color: white;
+            font-weight: 500;
+            font-size: 20px;
+            
+        }
+
+        
+
+        body { 
+            
+            background: var(--bg); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            gap: 20px; 
+            flex-wrap: wrap; 
+            flex-direction: column;
+        }
         
         /* Contenedor del Calendario */
         .card { 
@@ -13,37 +58,104 @@
             padding: 20px; 
             width: 1104px; 
             height: 682px; 
+            border: 2px solid oklch(0.707 0.022 261.325);
         }
 
         .header-cal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .btn { background: var(--primary); color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
+        .btn { 
+            border: 2px solid oklch(0.707 0.022 261.325);
+            color: black; 
+            padding: 8px 12px; 
+            background: transparent;
+            cursor: pointer; 
+            font-size: 16px;
+        }
         table { width: 100%; border-collapse: collapse; }
-        th { color: #888; font-size: 0.8em; padding: 10px 0; }
-        td { text-align: center; padding: 12px 0; border-radius: 50%; cursor: default; }
-        .hoy { background: var(--primary); color: white; font-weight: bold; }
+        th { 
+            color: #888; 
+            font-size: 16px; 
+            padding: 10px 0; 
+            width: 149px; 
+            height: 28px;
+            border: 2px solid oklch(0.707 0.022 261.325);
+            background-color: oklch(0.278 0.033 256.848);
+            color: white;
+            font-weight: 500;
+        }
+        td { 
+            
+            height: 72px;
+            padding: 16px;
+            cursor: default; 
+            border: 2px solid oklch(0.707 0.022 261.325);
+            font-weight: 500;
+
+            text-align: left;     
+            vertical-align: top;
+        }
+
+        tr {
+            border: 2px solid oklch(0.707 0.022 261.325);
+        }
+        .hoy { 
+            background: oklch(0.278 0.033 256.848);
+            color: white; 
+            
+            font-weight: 500;
+        }
         .finde { color: #d32f2f; }
 
         /* Contenedor de Feriados con Slide/Scroll */
-        .feriados-box { width: 300px; height: 400px; background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .lista-scroll { height: 330px; overflow-y: auto; padding-right: 10px; }
+        /* Contenedor principal */
+.feriados-box { 
+    width: 1104px; 
+    height: 318px; 
+    background: white; 
+    padding: 20px; 
+    border: 2px solid oklch(0.707 0.022 261.325); /* Fundamental para que el padding no sume al tamaño */
+    display: flex;
+    flex-direction: column; /* Alinea título y lista verticalmente */
+    overflow: hidden; /* Corta cualquier cosa que intente salir */
+}
+
+.feriados-box h3 {
+    margin: 0 0 15px 0; /* Quitamos margen superior para ganar espacio */
+}
+
+/* La lista con scroll */
+.lista-scroll { 
+    flex: 1; /* Esto le dice: "toma todo el alto que sobre" */
+    overflow-y: auto; 
+    padding-right: 10px; 
+}
         /* Personalización del Scroll (Slide) */
         .lista-scroll::-webkit-scrollbar { width: 6px; }
         .lista-scroll::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
         .feriado-item { padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em; }
         .feriado-fecha { font-weight: bold; color: var(--primary); display: block; }
+
+        h3 {
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
-
+    <nav class="navbar">
+    <div class="navbar-inner">
+        <h2 class="logo">Calendario Institucional y Feriados</h2>
+        
+    </div>
+</nav>
     <div class="card">
         <div class="header-cal">
-            <button class="btn" onclick="cambiarMes(-1)">◀</button>
+            
             <h3 id="mes-nombre">Mes</h3>
-            <button class="btn" onclick="cambiarMes(1)">▶</button>
+            <button class="btn" onclick="cambiarMes(-1)">◀ ANTERIOR</button>
+            <button class="btn" onclick="cambiarMes(1)">SIGUIENTE ▶</button>
         </div>
         <table id="tabla-dias">
             <thead>
-                <tr><th>Lu</th><th>Ma</th><th>Mi</th><th>Ju</th><th>Vi</th><th>Sa</th><th>Do</th></tr>
+                <tr><th>LUN</th><th>MAR</th><th>MIE</th><th>JUE</th><th>VIE</th><th>SAB</th><th>DOM</th></tr>
             </thead>
             <tbody id="cuerpo-calendario">
                 </tbody>
@@ -92,6 +204,7 @@
                 const hoy = new Date();
                 if (dia === hoy.getDate() && mes === hoy.getMonth() && anio === hoy.getFullYear()) {
                     celda.classList.add("hoy");
+                    celda.innerHTML = dia + "<br> HOY ";
                 }
                 
                 fila.appendChild(celda);
