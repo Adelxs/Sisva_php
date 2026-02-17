@@ -8,7 +8,13 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); display: flex; justify-content: center; gap: 20px; padding: 20px; flex-wrap: wrap; }
         
         /* Contenedor del Calendario */
-        .card { background: white; border-radius: 12px; shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 20px; width: 350px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .card { 
+            background: white; 
+            padding: 20px; 
+            width: 1104px; 
+            height: 682px; 
+        }
+
         .header-cal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .btn { background: var(--primary); color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
         table { width: 100%; border-collapse: collapse; }
