@@ -55,13 +55,21 @@
         /* Contenedor del Calendario */
         .card { 
             background: white; 
-            padding: 20px; 
+            padding: 24px; 
             width: 1104px; 
-            height: 682px; 
+            height: auto; 
             border: 2px solid oklch(0.707 0.022 261.325);
+            display: flex;
+            flex-wrap: wrap;
         }
 
-        .header-cal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .header-cal { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 15px; 
+            width: 100%;
+        }
         .btn { 
             border: 2px solid oklch(0.707 0.022 261.325);
             color: black; 
@@ -107,34 +115,79 @@
 
         /* Contenedor de Feriados con Slide/Scroll */
         /* Contenedor principal */
+/* Ajuste del contenedor de feriados */
 .feriados-box { 
     width: 1104px; 
     height: 318px; 
     background: white; 
-    padding: 20px; 
-    border: 2px solid oklch(0.707 0.022 261.325); /* Fundamental para que el padding no sume al tamaño */
+    padding: 24px; 
+    border: 2px solid oklch(0.707 0.022 261.325);
     display: flex;
-    flex-direction: column; /* Alinea título y lista verticalmente */
-    overflow: hidden; /* Corta cualquier cosa que intente salir */
+    flex-direction: column;
+   
 }
 
-.feriados-box h3 {
-    margin: 0 0 15px 0; /* Quitamos margen superior para ganar espacio */
-}
-
-/* La lista con scroll */
+/* El div que envuelve la tabla para el scroll */
 .lista-scroll { 
-    flex: 1; /* Esto le dice: "toma todo el alto que sobre" */
-    overflow-y: auto; 
-    padding-right: 10px; 
+    flex: 1;
+    overflow-y: auto;
+    border: 2px solid oklch(0.707 0.022 261.325);
 }
+
+/* Estilo de la tabla de feriados */
+.tabla-feriados {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-feriados td {
+    padding: 8px 16px; /* Reducimos el padding vertical a 8px */
+    border: 1px solid oklch(0.707 0.022 261.325);
+    font-size: 15px;
+    vertical-align: middle;
+    /* Forzamos el alto de la celda */
+    height: 50px; 
+    box-sizing: border-box;
+}
+
+/* También ajustamos el alto del encabezado para que sea simétrico */
+.tabla-feriados th {
+    position: sticky;
+    top: 0;
+    background-color: oklch(0.278 0.033 256.848);
+    color: white;
+    z-index: 10;
+    padding: 10px 12px;
+    height: 50px; 
+    text-align: left;
+    font-size: 14px;
+    border: 1px solid oklch(0.707 0.022 261.325);
+    box-sizing: border-box;
+}
+
         /* Personalización del Scroll (Slide) */
         .lista-scroll::-webkit-scrollbar { width: 6px; }
         .lista-scroll::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
         .feriado-item { padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em; }
-        .feriado-fecha { font-weight: bold; color: var(--primary); display: block; }
+        .feriado-fecha { font-weight: 500; color: black; display: block; }
 
         h3 {
+            font-weight: 500;
+        }
+
+        .fyf {
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .vol {
+            background-color: rgb(255, 255, 255);
+            border: 2px solid oklch(0.707 0.022 261.325);
+            width: 1154px;
+            margin-bottom: 20px;
+            height: 52px;
+            margin-top: 12px;
+            font-size: 16px;
             font-weight: 500;
         }
     </style>
@@ -148,9 +201,9 @@
 </nav>
     <div class="card">
         <div class="header-cal">
-            
-            <h3 id="mes-nombre">Mes</h3>
             <button class="btn" onclick="cambiarMes(-1)">◀ ANTERIOR</button>
+            <h3 id="mes-nombre">Mes</h3>
+            
             <button class="btn" onclick="cambiarMes(1)">SIGUIENTE ▶</button>
         </div>
         <table id="tabla-dias">
@@ -163,12 +216,20 @@
     </div>
 
     <div class="feriados-box">
-        <h3>Próximos Feriados</h3>
-        <div class="lista-scroll" id="lista-feriados">
-            Cargando feriados...
-        </div>
+    <h3 class= "fyf">Feriados y Fechas Especiales</h3>
+    <div class="lista-scroll">
+        <table class="tabla-feriados">
+            <thead>
+                <tr>
+                    <th style="width: 40%;">FECHA</th>
+                    <th>NOMBRE DEL FERIADO</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-feriados">
+                </tbody>
+        </table>
     </div>
-
+</div>
     <script>
         let fechaActual = new Date(); // 2026-01-28 según el contexto actual
 
@@ -219,36 +280,31 @@
 
         async function cargarFeriados() {
     try {
-        // Cambiamos a Nager.Date API (Mucho más estable)
         const res = await fetch('https://date.nager.at/api/v3/PublicHolidays/2026/CL');
-        
-        if (!res.ok) throw new Error("Error en la respuesta de la red");
+        if (!res.ok) throw new Error("Error en la red");
         
         const data = await res.json();
-        const contenedor = document.getElementById('lista-feriados');
-        contenedor.innerHTML = "";
+        const cuerpo = document.getElementById('cuerpo-feriados');
+        cuerpo.innerHTML = "";
 
         data.forEach(f => {
-            const item = document.createElement("div");
-            item.className = "feriado-item";
+            const fila = document.createElement("tr");
             
-            // Formateamos la fecha de YYYY-MM-DD a DD/MM/YYYY
             const partes = f.date.split('-');
             const fechaFormateada = `${partes[2]}/${partes[1]}/${partes[0]}`;
 
-            item.innerHTML = `
-                <span class="feriado-fecha">${fechaFormateada}</span>
-                <span>${f.localName}</span>
+            fila.innerHTML = `
+                <td style="font-weight: 500; color: black;">${fechaFormateada}</td>
+                <td>${f.localName}</td>
             `;
-            contenedor.appendChild(item);
+            cuerpo.appendChild(fila);
         });
     } catch (e) {
-        console.error("Detalle del error:", e);
-        document.getElementById('lista-feriados').innerHTML = 
-            `<p style="color:red; font-size:0.8em;">Error al conectar con el servicio de feriados. <br> Detalle: ${e.message}</p>`;
+        console.error(e);
+        document.getElementById('cuerpo-feriados').innerHTML = 
+            `<tr><td colspan="2" style="color:red;">Error al cargar datos</td></tr>`;
     }
-}
-        // Iniciar todo
+}      // Iniciar todo
         renderCalendario();
         cargarFeriados();
     </script>

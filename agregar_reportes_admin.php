@@ -263,7 +263,7 @@ $codigo_usuario = $_SESSION['codigo_usuario'];
          <div class="botones">
 
     <button class="vol" type="button"
-                onclick="window.location.href='panel_administrador.php'"
+                onclick="window.location.href='leer_reportes_admin.php'"
                 class="btn-volver">
             CANCELAR
         </button>
