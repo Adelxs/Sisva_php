@@ -82,7 +82,7 @@ $usuarios = json_decode($response, true);
 
         @media (max-width: 1024px) {
     .container {
-        height: auto;
+        height: 500px;
     }
 }
 
