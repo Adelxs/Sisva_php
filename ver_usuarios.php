@@ -73,7 +73,7 @@ $usuarios = json_decode($response, true);
 
         .container {
             max-width: 1228px;
-            height: 422px;
+            height: 500px;
             padding: 24px;
             border: 2px solid oklch(0.707 0.022 261.325);
              margin: 94px auto 0 auto;
