@@ -20,7 +20,9 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
+        
 
         body { 
             font-family: Arial, sans-serif;
@@ -129,15 +131,42 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
         }
 
         /* DIVS PEQUEÑOS */
-        .small-box {
-            flex: 1;               /* Se reparten igual */
-            border: 3px solid rgb(96, 165, 250);
-            padding: 20px;
-            height: 116px;
-            text-align: center;
-            font-weight: bold;
-            
-        }
+       /* DIVS PEQUEÑOS MODIFICADOS */
+.small-box {
+    flex: 1;
+    border: 3px solid rgb(96, 165, 250);
+    padding: 15px; /* Un poco menos de padding para dar espacio */
+    height: 116px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Empuja el título arriba y el número abajo */
+    align-items: flex-start;       /* Alinea todo a la izquierda */
+    background: white;
+    
+    transition: transform 0.2s;
+}
+
+.small-box:hover {
+    transform: translateY(-3px); /* Efecto sutil al pasar el mouse */
+}
+
+/* Títulos de los Box */
+.small-box p {
+    font-size: 14px;
+    color: #64748b; /* Gris azulado profesional */
+    
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+/* Números de los Box (Aquí puedes jugar con el tamaño) */
+.small-box h2 {
+    font-size: 30px;      /* <--- CAMBIA ESTE VALOR PARA EL TAMAÑO */
+    color: rgb(37, 99, 235);
+    line-height: 1;
+    margin: 0;
+    font-weight: 500;     /* Más grueso para que resalte */
+}
 
         /* DIV GRANDE */
         .big-box {
@@ -200,6 +229,42 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
     width: 100%;                   /* Ancho total del sidebar */
 }
 
+.big-box {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Evita que la tabla se salga del div */
+}
+
+.table-wrapper {
+    flex: 1;
+    overflow-y: auto; /* 🔥 Aquí está el slide/scroll que pedías */
+    margin-top: 10px;
+}
+
+.historial-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+}
+
+.historial-table th {
+    background: #f8fafc;
+    position: sticky; /* 🔥 El encabezado no se mueve al bajar */
+    top: 0;
+    padding: 10px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.historial-table td {
+    padding: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.historial-table tr:hover {
+    background: #f1f5f9;
+}
+
     </style>
 </head>
 
@@ -214,12 +279,11 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
     <ul class="menu">
         
         <li><a href="ver_usuarios.php">Gestión de Usuarios</a></li>
-        <li><a href="gestion_qr.php">Gestión de QR</a></li>
+        <li><a href="panel_qr_admin.php">Gestion de QR</a></li>
         <li><a href="leer_reportes_admin.php">Reportes de Incidencias</a></li>
         <li><a href="logs_acceso.php">Logs de Acceso</a></li>
         <li><a href="calendario_admin.php">Calendario y Dias Festivos</a></li>
         <li><a href="perfil_administrador.php">Perfil Administrador</a></li>
-        <li><a href="panel_qr_admin.php">Generar mi QR</a></li>
         <li><a href="descargar_apk.php">Descargar APK</a></li>
     </ul>
 
@@ -252,7 +316,10 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
     <p>Total Usuarios</p>
     <h2 id="total-usuarios">--</h2>
 </div>
-        <div class="small-box">funciona el automatico</div>
+        <div class="small-box">
+    <p>Total de Acciones</p>
+    <h2 id="total-acciones">--</h2>
+</div>
         <div class="small-box">
     <p>Reportes Totales</p>
     <h2 id="total-reportes">--</h2>
@@ -264,7 +331,22 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
     </div>
 
     <!-- DIV GRANDE ABAJO -->
-    <div class="big-box">Div Grande</div>
+    <div class="big-box">
+    <p>Actividad Reciente</p>
+    <div class="table-wrapper">
+        <table class="historial-table">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Acción</th>
+                    <th>Fecha y Hora</th>
+                </tr>
+            </thead>
+            <tbody id="lista-historial">
+                </tbody>
+        </table>
+    </div>
+</div>
 
 </main>
 
@@ -309,6 +391,34 @@ async function obtenerEstadisticas() {
     } catch (error) {
         console.error("Error obteniendo estadísticas:", error);
     }
+
+    // 4. Obtener Historial de Acciones
+const resHist = await fetch('https://sisvaqr-production.up.railway.app/historial/acciones');
+const dataHist = await resHist.json();
+
+if (dataHist.ok) {
+    const tbody = document.getElementById('lista-historial');
+    tbody.innerHTML = ""; // Limpiar antes de llenar
+
+    dataHist.historial.forEach(item => {
+        const fecha = new Date(item.Hora_Accion).toLocaleString();
+        const fila = `
+            <tr>
+                <td><strong>${item.Nombre_y_Apellido}</strong></td>
+                <td>${item.Accion}</td>
+                <td style="color: #64748b;">${fecha}</td>
+            </tr>
+        `;
+        tbody.innerHTML += fila;
+    });
+}
+
+// 5. Conteo Total de Acciones (Historial)
+const resHistTotal = await fetch('https://sisvaqr-production.up.railway.app/historial/conteo-total');
+const dataHistTotal = await resHistTotal.json();
+if (dataHistTotal.ok) {
+    document.getElementById('total-acciones').innerText = dataHistTotal.total;
+}
 }
 
 // Ejecutar de inmediato

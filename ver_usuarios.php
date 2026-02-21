@@ -10,286 +10,151 @@ $usuarios = json_decode($response, true);
     <meta charset="UTF-8">
     <title>Lista de Usuarios</title>
     <style>
-         * { 
-            box-sizing: border-box;
-            font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-            color: oklch(0.145 0 0);
-        }
-
-           .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 64px;
-            background-color: oklch(0.278 0.033 256.848);
-            border-bottom: 2px solid oklch(0.21 0.034 264.665);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            z-index: 1000;
-            
-        }
-
-        /* Logo / título */
-       
-        .navbar .logo {
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: #fff;
-            margin-left: 16px;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            padding: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            background-color: #fff;
-            border: 2px solid oklch(0.707 0.022 261.325);
-        }
-        th, td {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: rgb(30, 41, 59);
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .container {
-            max-width: 1228px;
-            height: 422px;
-            padding: 24px;
-            border: 2px solid oklch(0.707 0.022 261.325);
-             margin: 94px auto 0 auto;
-             position: relative;
-        }
-
-        @media (max-width: 1024px) {
-    .container {
-        height: auto;
-    }
+  /* ===== RESET & BASE ===== */
+* { 
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: ui-sans-serif, system-ui, sans-serif;
 }
 
+body {
+    background-color: #f4f6f8;
+    padding-top: 80px; /* Espacio para la navbar fija */
+}
 
-        .acciones {
-    
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 64px;
+    background-color: oklch(0.278 0.033 256.848);
     display: flex;
+    align-items: center;
+    padding: 0 24px;
+    z-index: 1000;
+}
+.navbar .logo { color: #fff; font-size: 1.25rem; font-weight: 500; }
+
+/* ===== CONTAINER PRINCIPAL ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+    background: white;
+    padding: 24px;
+    border: 2px solid oklch(0.707 0.022 261.325);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ===== ACCIONES (ARRIBA) ===== */
+.acciones {
+    display: flex;
+    flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: 20px;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filtros-busqueda {
+    display: flex;
+    gap: 10px;
+}
+
+.botones-grupo {
+    display: flex;
+    gap: 8px; /* Botones más juntos como pediste */
+}
+
+.acciones input, .acciones select {
+    height: 40px;
+    padding: 8px 12px;
+    border: 2px solid oklch(0.707 0.022 261.325);
+    outline: none;
 }
 
 .acciones button {
-    background-color: rgb(30, 41, 59); /* mismo color que th */
-    color: white;
-    border: 2px solid oklch(0.21 0.034 264.665);
-    padding: 10px 16px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    width: 242.317px;
-    height: 40px;
-}
-
-.volver {
-    position: absolute;
-    bottom: 24px;
-    left: 24px;
-
-    background-color: white;
-    border: 2px solid oklch(0.707 0.022 261.325);
-    width: 200px;
-    height: 52px;
-
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.acciones input {
-    width: 267px;
-    height: 40px;
-    padding: 8px 12px;
-    font-size: 15px;
-    border: 2px solid oklch(0.707 0.022 261.325);
-    outline: none;
-}
-
-.acciones select {
-    width: 150px;
-    height: 40px;
-    padding: 8px 10px;
-    font-size: 15px;
-    border: 2px solid oklch(0.707 0.022 261.325);
-    outline: none;
-    background-color: white;
-    cursor: pointer;
-}
-
-.paginacion {
-    position: absolute;
-    bottom: 24px;
-    right: 24px;
-    
-    display: flex;
-    gap: 8px;
-    align-items: center;
-
-    background: transparent;
-    padding: 10px 14px;
-    
-}
-
-
-.paginacion button {
-    background-color: #fff;
-    color: black;
-    border: 1px solid oklch(0.707 0.022 261.325);
-    padding: 8px 14px;
-    cursor: pointer;
-    font-size: 16px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.paginacion button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.paginacion .pagina {
-    width: 40px;
-    height: 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 16px;
-    background: white;
-    border: 1px solid oklch(0.707 0.022 261.325);
-    cursor: pointer;
-
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
- 
-
-.paginacion .pagina.activa {
     background-color: rgb(30, 41, 59);
     color: white;
+    border: none;
+    padding: 0 15px;
+    height: 40px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: opacity 0.2s;
 }
 
-#numerosPaginas {
-    
-    display: flex;
-    gap: 8px; /* separación entre números */
-}
+.acciones button:hover { opacity: 0.9; }
 
+/* ===== TABLA ===== */
 .tabla-responsive {
     width: 100%;
     overflow-x: auto;
+    min-height: 250px; /* Evita que colapse si está vacía */
 }
 
-/* Estilo base para el div del usuario */
-#usuario {
-    display: inline-block; /* Para que el padding funcione bien */
-    padding: 4px 8px;      /* 4px arriba/abajo, 8px a los lados */
-    border: 1px solid;     /* Borde de 1px */   /* Un pequeño redondeado para que se vea moderno */
-    font-size: 12px;
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #eee;
+    text-align: left;
+}
+
+th { background-color: rgb(30, 41, 59); color: white; }
+
+/* ===== ROLES (ETIQUETAS) ===== */
+.rol-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: bold;
     text-transform: uppercase;
+    border-radius: 4px;
+}
+.bg-administrador { background: #1e293b; color: white; }
+.bg-validador { background: #334155; color: white; }
+.bg-usuario { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+
+/* ===== FOOTER DEL CONTAINER (BOTONES ABAJO) ===== */
+.container-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
 }
 
-/* Colores según el texto del div */
-.bg-administrador {
-    background-color: oklch(0.278 0.033 256.848); /* Naranja/Dorado suave */
-    border-color: oklch(0.5 0.15 70);
-    color: white;
+.volver {
+    background: white;
+    border: 2px solid oklch(0.707 0.022 261.325);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 500;
 }
 
-.bg-validador {
-    background-color: oklch(0.446 0.03 256.802); /* Verde esmeralda claro */
-    border-color: oklch(0.5 0.1 160);
-    color: white;
+.paginacion { display: flex; gap: 5px; align-items: center; }
+.paginacion button { padding: 8px 12px; cursor: pointer; background: white; border: 1px solid #ccc; }
+.paginacion .pagina {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    cursor: pointer;
 }
+.paginacion .pagina.activa { background: rgb(30, 41, 59); color: white; border-color: rgb(30, 41, 59); }
 
-.bg-usuario {
-    background-color: oklch(0.928 0.006 264.531); /* Azul muy claro */
-    border-color: oklch(0.5 0.05 250);
-    color: oklch(0.2 0.05 250);
+/* ===== MEDIA QUERIES MEJORADOS ===== */
+@media (max-width: 900px) {
+    .acciones { flex-direction: column; align-items: stretch; }
+    .filtros-busqueda, .botones-grupo { flex-direction: column; width: 100%; }
+    .container-footer { flex-direction: column-reverse; gap: 20px; }
 }
-
-
-@media (max-width: 768px) {
-
-    .acciones {
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-start;
-        gap: 10px;
-    }
-
-    .acciones input,
-    .acciones select {
-        width: 100%;
-    }
-
-    .botones {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .acciones button {
-        width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-
-    .paginacion {
-        position: static;
-        margin-top: 20px;
-        justify-content: center;
-        padding: 0;
-    }
-
-    .paginacion button,
-    .paginacion .pagina {
-        height: 36px;
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 768px) {
-    .volver {
-        position: static;
-        width: 100%;
-        margin-top: 20px;
-    }
-}
-
-
-
-
         
     </style>
 </head>
