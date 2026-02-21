@@ -120,6 +120,7 @@ body {
     display: flex;
     align-items: center;
     padding: 0 24px;
+    border-bottom: 4px solid oklch(0.21 0.034 264.665);
 }
 
 .logo {
@@ -223,7 +224,7 @@ input[readonly] {
 <body>
 
 <nav class="navbar">
-    <span class="logo">Perfil de usuario</span>
+    <span class="logo">Configuración de Perfil de Usuario</span>
 </nav>
 
 <div class="form-container">

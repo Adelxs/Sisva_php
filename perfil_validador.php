@@ -109,16 +109,39 @@ body {
 }
 
 /* NAVBAR */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 64px;
-    background: #1e293b;
+ .navbar {
+    position: fixed; /* Esto la "ancla" a la pantalla */
+    top: 0;          /* Al ras del techo */
+    left: 0;         /* Al ras de la izquierda */
+    width: 100%;     /* Que cubra todo el ancho */
+    background-color: rgb(30, 41, 59);
+    color: rgb(255, 255, 255);
+    padding: 15px 0;
     display: flex;
-    align-items: center;
-    padding: 0 24px;
+    justify-content: center;
+    border-bottom: 4px solid rgb(15, 23, 42);
+    z-index: 1000;   /* Asegura que pase por encima de todo */
 }
+        .navbar-inner {
+            width: 100%;
+            max-width: 950px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 34px;
+        }
+
+        .navbar .logo {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .rol {
+            color: rgb(147, 197, 253);
+            font-size: 14px;
+            font-weight: 100;
+        }
+
 
 .logo {
     color: white;
@@ -132,7 +155,7 @@ body {
     padding: 30px;
     width: 100%;
     max-width: 620px;
-    margin-top: 24px;
+    margin-top: 34px;
 }
 
 h2 {
@@ -209,6 +232,7 @@ input[readonly] {
     border: 2px solid #1e293b;
 }
 
+
 /* RESPONSIVE */
 @media (max-width: 480px) {
     .botones {
@@ -221,7 +245,13 @@ input[readonly] {
 <body>
 
 <nav class="navbar">
-    <span class="logo">Perfil de usuario</span>
+    <div class="navbar-inner">
+        <div class="logo">Perfil de Validador <br> <span class="rol">Rol: Validador</span></div>
+        <button onclick="window.location.href='login_general.php'" 
+            style="padding: 4px 12px; background: transparent; color: white; border: 2px solid white; cursor: pointer; font-size: 14px; height: 40px; font-weight: 500;">
+            CERRAR SESIÓN
+        </button>
+    </div>
 </nav>
 
 <div class="form-container">
@@ -259,6 +289,15 @@ input[readonly] {
 
     <label>Confirmar contraseña</label>
     <input type="password" name="password_confirmar">
+</div>
+
+<div class="seguridad">
+    <label style="margin-bottom: 12px; ">Detalles de Asignación</label>
+    <div style="display: flex; flex-direction: column; gap: 3px;">
+        <p class="pex" style="margin: 0; font-weight: bold;">Zona: <span style="font-weight: bold;">--</span></p>
+        <p class="pex" style="margin: 0; font-weight: bold;">Turno: <span style="font-weight: bold;">--</span></p>
+        <p class="pex" style="margin: 0; font-weight: bold;">Estado: <span style="font-weight: bold;">--</span></p>
+    </div>
 </div>
 
 <div class="botones">
