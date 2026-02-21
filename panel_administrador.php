@@ -281,7 +281,6 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
         <li><a href="ver_usuarios.php">Gestión de Usuarios</a></li>
         <li><a href="panel_qr_admin.php">Gestion de QR</a></li>
         <li><a href="leer_reportes_admin.php">Reportes de Incidencias</a></li>
-        <li><a href="logs_acceso.php">Logs de Acceso</a></li>
         <li><a href="calendario_admin.php">Calendario y Dias Festivos</a></li>
         <li><a href="perfil_administrador.php">Perfil Administrador</a></li>
         <li><a href="descargar_apk.php">Descargar APK</a></li>
