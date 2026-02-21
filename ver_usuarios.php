@@ -104,7 +104,7 @@ $usuarios = json_decode($response, true);
     font-size: 16px;
     font-weight: 500;
     transition: background-color 0.2s ease, transform 0.1s ease;
-    width: 230.317px;
+    width: 240.317px;
     height: 40px;
 }
 
