@@ -6,6 +6,28 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
     header("Location: login_general.php");
     exit;
 }
+
+$rut_usuario = $_SESSION['rut_usuario'] ?? '';
+$nombre_completo = "No encontrado";
+
+if (!empty($rut_usuario)) {
+    // Llamamos al nuevo endpoint que acabamos de crear
+    $url = "https://sisvaqr-production.up.railway.app/usuario_por_rut/" . urlencode($rut_usuario);
+    
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Saltamos SSL por ahora
+    
+    $respuesta = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($http_code === 200) {
+        $datos = json_decode($respuesta, true);
+        $nombre_completo = $datos['usuario']['Nombre_y_Apellido'] ?? 'Sin nombre';
+        $correo = $datos['usuario']['Correo_Electronico'] ?? 'Sin correo';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -300,8 +322,9 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
         <div class="top-navbar">
             <div class="title">Resumen del panel</div>
             <div class="menu-right">
-                <a href="#">Notificaciones</a>
-                <a href="#">Perfil</a>
+                
+    <p class="pex">Nombre y Apellido: <span style="font-weight: normal;"><?= htmlspecialchars($nombre_completo) ?></span></p>
+    <p class="pex">Correo: <span style="font-weight: normal;"><?= htmlspecialchars($correo) ?></span></p>
             </div>
         </div>
 

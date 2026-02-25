@@ -9,6 +9,27 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
 
 // Definir variable SIEMPRE
 $rut_usuario = $_SESSION['rut_usuario'] ?? '';
+$nombre_completo = "No encontrado";
+
+if (!empty($rut_usuario)) {
+    // Llamamos al nuevo endpoint que acabamos de crear
+    $url = "https://sisvaqr-production.up.railway.app/usuario_por_rut/" . urlencode($rut_usuario);
+    
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Saltamos SSL por ahora
+    
+    $respuesta = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($http_code === 200) {
+        $datos = json_decode($respuesta, true);
+        $nombre_completo = $datos['usuario']['Nombre_y_Apellido'] ?? 'Sin nombre';
+    }
+}
+
+
 ?>
 
 
@@ -282,7 +303,7 @@ $rut_usuario = $_SESSION['rut_usuario'] ?? '';
     </div>
 
     <div class="estado">
-        Estado:
+        Estado: Activo
     </div>
 
     <form action="qr_usuarios.php" method="GET">
@@ -292,10 +313,10 @@ $rut_usuario = $_SESSION['rut_usuario'] ?? '';
 
         <br><br>
 
-        <div class="divex">
-            <P class="pex">Rut:</P>
-            <p>Nombres y Apellidos:</p>
-        </div>
+       <div class="divex">
+    <p class="pex">Rut: <span style="font-weight: normal;"><?= htmlspecialchars($rut_usuario) ?></span></p>
+    <p class="pex">Nombres y Apellidos: <span style="font-weight: normal;"><?= htmlspecialchars($nombre_completo) ?></span></p>
+</div>
 
         <button type="submit" class="generarqr">GENERAR / ACTUALIZAR CODIGO QR</button>
        
