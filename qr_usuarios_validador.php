@@ -281,7 +281,7 @@ async function generarQR() {
         qrContainer.appendChild(canvas);
 
         const textoQR = `
-        
+UID: ${u.Codigo_Usuario}        
 RUT: ${u.RUT}
 Nombre: ${u.Nombre_y_Apellido}
 Tipo: ${u.Tipo_de_Usuario}

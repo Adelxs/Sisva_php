@@ -442,7 +442,7 @@ async function generarQR() {
         const u = data.usuario; // { RUT, Nombre_y_Apellido, Tipo_de_Usuario }
 
         // Texto para el QR
-        const textoQR = `RUT: ${u.RUT}\nNombre: ${u.Nombre_y_Apellido}\nTipo: ${u.Tipo_de_Usuario}`;
+        const textoQR = `UID: ${u.Codigo_Usuario}\nRUT: ${u.RUT}\nNombre: ${u.Nombre_y_Apellido}\nTipo: ${u.Tipo_de_Usuario}`;
 
         // Limpiar QR anterior
         qrContainer.innerHTML = '';
