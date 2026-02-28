@@ -401,7 +401,7 @@ li {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <script>
-const DURACION_QR = 30; // 5 minutos
+const DURACION_QR = 300; // 5 minutos
 let tiempoRestante = DURACION_QR;
 let intervalo;
 
@@ -434,7 +434,9 @@ function obtenerFechaHoraActual() {
 async function generarQR() {
     try {
         // Llamamos a la API usando el RUT
-        const res = await fetch(`https://sisvaqr-production.up.railway.app/me?rut=${rut}`);
+        const mensajeAccion = encodeURIComponent("Se genero QR");
+        const res = await fetch(`https://sisvaqr-production.up.railway.app/me?rut=${rut}&accion=${mensajeAccion}`);
+        
         const data = await res.json();
 
         if (!data.ok) throw new Error(data.error || 'Error al obtener usuario');

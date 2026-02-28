@@ -261,7 +261,7 @@ const RUT_QR = "<?= htmlspecialchars($rut) ?>"
 const qrContainer = document.getElementById('qr-container');
 const estadoDiv = document.getElementById('estado');
 const uExterno = document.getElementById('uExterno');
-const DURACION_QR = 30; // 5 minutos en segundos
+const DURACION_QR = 300; // 5 minutos en segundos
 let tiempoRestante = DURACION_QR;
 let intervalo = null;
 
