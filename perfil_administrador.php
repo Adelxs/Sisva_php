@@ -367,21 +367,6 @@ input[readonly] {
 
 </div>
 
-<div class="preferencias-sistema">
-        <h2>Preferencias del sistema</h2>
-
-        <div class="preferencia">
-            <!-- Preferencia 1 -->
-        </div>
-
-        <div class="preferencia">
-            <!-- Preferencia 2 -->
-        </div>
-
-        <div class="preferencia">
-            <!-- Preferencia 3 -->
-        </div>
-    </div>
 
 <div class="botones">
     <button type="button" class="volver" onclick="window.location.href='panel_administrador.php'">
