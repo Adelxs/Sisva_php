@@ -269,7 +269,7 @@ if (!empty($rut_usuario)) {
             
             <li><button onclick="window.location.href='login_general.php'" 
             style="
-            padding: 8px 16px;
+            padding: 6px 14px;
             background: rgba(0, 0, 0, 0);
             color: rgb(255, 255, 255);
             border: 2px solid rgb(255, 255, 255);
