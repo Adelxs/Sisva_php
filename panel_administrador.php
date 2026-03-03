@@ -195,7 +195,7 @@ if (!empty($rut_usuario)) {
             width: 100%;           /* Ocupa todo el ancho */
            
             padding: 20px;
-            height: 474px;
+            height: 700px;
             text-align: center;
             font-weight: bold;
             border: 3px solid rgb(96, 165, 250);
@@ -255,7 +255,7 @@ if (!empty($rut_usuario)) {
     display: flex;
     flex-direction: column;
     overflow: hidden; /* Evita que la tabla se salga del div */
-    height: 750px;
+    height: 700px;
 }
 
 .table-wrapper {
