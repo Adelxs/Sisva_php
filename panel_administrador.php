@@ -255,6 +255,7 @@ if (!empty($rut_usuario)) {
     display: flex;
     flex-direction: column;
     overflow: hidden; /* Evita que la tabla se salga del div */
+    height: 750px;
 }
 
 .table-wrapper {
@@ -323,8 +324,8 @@ if (!empty($rut_usuario)) {
             <div class="title">Resumen del panel</div>
             <div class="menu-right">
                 
-    <p class="pex">Nombre y Apellido: <span style="font-weight: normal;"><?= htmlspecialchars($nombre_completo) ?></span></p>
-    <p class="pex">Correo: <span style="font-weight: normal;"><?= htmlspecialchars($correo) ?></span></p>
+    <p class="pex"><span style="font-weight: normal;"><?= htmlspecialchars($nombre_completo) ?></span></p>
+    <p class="pex"><span style="font-weight: normal; font-size: 12px;"><?= htmlspecialchars($correo) ?></span></p>
             </div>
         </div>
 
