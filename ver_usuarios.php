@@ -207,6 +207,8 @@ $usuarios = json_decode($response, true);
 .tabla-responsive {
     width: 100%;
     overflow-x: auto;
+    margin-bottom: 80px; /* Espacio para que los botones de abajo no se encimen */
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Estilo base para el div del usuario */

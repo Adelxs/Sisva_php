@@ -175,31 +175,31 @@ if (!empty($rut_usuario)) {
 /* Títulos de los Box */
 .small-box p {
     font-size: 14px;
-    color: #64748b; /* Gris azulado profesional */
+    color: #64748b; 
     
     letter-spacing: 0.5px;
     margin: 0;
 }
 
-/* Números de los Box (Aquí puedes jugar con el tamaño) */
+/* Números de los Box */
 .small-box h2 {
-    font-size: 30px;      /* <--- CAMBIA ESTE VALOR PARA EL TAMAÑO */
+    font-size: 30px;      
     color: rgb(37, 99, 235);
     line-height: 1;
     margin: 0;
-    font-weight: 500;     /* Más grueso para que resalte */
+    font-weight: 500;     
 }
 
         /* DIV GRANDE */
         .big-box {
-            width: 100%;           /* Ocupa todo el ancho */
+            width: 100%;          
            
             padding: 20px;
-            height: 474px;
+            height: 670px;
             text-align: center;
             font-weight: bold;
             border: 3px solid rgb(96, 165, 250);
-                 /* 🔥 Aquí controlas el alto */
+                
         }
 
 
@@ -323,8 +323,8 @@ if (!empty($rut_usuario)) {
             <div class="title">Resumen del panel</div>
             <div class="menu-right">
                 
-    <p class="pex">Nombre y Apellido: <span style="font-weight: normal;"><?= htmlspecialchars($nombre_completo) ?></span></p>
-    <p class="pex">Correo: <span style="font-weight: normal;"><?= htmlspecialchars($correo) ?></span></p>
+    <p class="pex"><span style="font-weight: normal;"><?= htmlspecialchars($nombre_completo) ?></span></p>
+    <p class="pex"><span style="font-weight: normal; font-size: 12px;"><?= htmlspecialchars($correo) ?></span></p>
             </div>
         </div>
 
