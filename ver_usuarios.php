@@ -262,8 +262,7 @@ $usuarios = json_decode($response, true);
     }
 
     .acciones button {
-        /* Calculamos el ancho para que quepan 2 por fila (menos el gap) */
-        /* O puedes usar 'flex: 1' para que se estiren equitativamente */
+        
         flex: 1 1 140px; 
         width: auto;
         min-width: 140px;
