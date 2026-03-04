@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuarios</title>
     <style>
 
@@ -14,27 +15,26 @@
 
 
         /* Navbar */
-        .navbar {
+       .navbar {
     background-color: rgb(30, 41, 59);
     color: rgb(255, 255, 255);
-    padding: 15px 0; /* Ajustado */
+    padding: 10px 0;
     display: flex;
     justify-content: center;
     border-bottom: 4px solid rgb(15, 23, 42);
-    width: 100%; /* Importante para que ocupe todo el ancho */
-    position: relative; /* O fixed si prefieres */
+    width: 100%;
+    position: relative;
     z-index: 1000;
 }
 
-        .navbar-inner {
-            width: 100%;
-    max-width: 950px;   /* MISMO ancho que .center */
+.navbar-inner {
+    width: 100%;
+    max-width: 624px; /* Ajustado al ancho del contenedor para simetría */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 58px;
-    padding: 0 34px;
-        }
+    padding: 0 20px;
+}
 
         .navbar .logo {
             font-size: 18px;
@@ -64,14 +64,13 @@
     min-height: 100vh;      /* Asegura que cubra el alto de la pantalla */
 }
 
-        .container {
+      .container {
     background: #fff;
     padding: 25px;
-    width: 100%;
-    max-width: 624px;
+    width: 90%; /* Ocupa el 90% en móviles */
+    max-width: 500px; /* Un poco más angosto para formularios se ve mejor */
     border: 2px solid oklch(0.707 0.022 261.325);
-    margin-top: 50px; /* Espacio entre el navbar y el formulario */
-    margin-bottom: 50px;
+    margin: 30px auto;
 }
 
         h2 {
@@ -135,6 +134,33 @@
             font-weight: 100;
             box-sizing: border-box;
         }
+
+        @media (max-width: 480px) {
+    .navbar-inner {
+        flex-direction: column; /* El logo arriba y el botón abajo */
+        height: auto;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .navbar .logo {
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+    
+    /* Botón de cerrar sesión más cómodo en móvil */
+    .navbar ul li button {
+        width: 100% !important;
+    }
+}
     </style>
 </head>
 <body>
