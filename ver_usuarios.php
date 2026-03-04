@@ -240,7 +240,7 @@ $usuarios = json_decode($response, true);
     color: oklch(0.2 0.05 250);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1277px) {
     .acciones {
         flex-direction: column;
         align-items: stretch;
