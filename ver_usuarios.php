@@ -8,6 +8,7 @@ $usuarios = json_decode($response, true);
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Usuarios</title>
     <style>
          * { 
@@ -290,11 +291,11 @@ $usuarios = json_decode($response, true);
     }
 
       .container {
-        height: auto; /* Quitamos el alto fijo para que crezca con el contenido */
+        height: auto; 
         min-height: 600px;
     }
 
-    /* Alineamos volver y paginación uno sobre otro pero centrados */
+   
     .volver {
         position: static;
         width: 100%;
