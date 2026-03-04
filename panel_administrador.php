@@ -255,6 +255,7 @@ if (!empty($rut_usuario)) {
     display: flex;
     flex-direction: column;
     overflow: hidden; /* Evita que la tabla se salga del div */
+    height: 670px;
 }
 
 .table-wrapper {

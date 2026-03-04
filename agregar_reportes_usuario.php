@@ -170,10 +170,12 @@ $codigo_usuario = $_SESSION['codigo_usuario'];
 
         @media (max-width: 768px) {
     .form-container {
-        margin: 20px;
-        padding: 24px;
-        min-height: auto;
-    }
+    /* Arriba | Lados | Abajo */
+    margin: 100px 20px 20px; 
+    padding: 24px;
+    min-height: auto;
+    /* Eliminamos el margin-top de 20px porque ya está incluido en la línea de arriba */
+}
 
     #imagenes {
         height: 150px;
@@ -188,10 +190,11 @@ $codigo_usuario = $_SESSION['codigo_usuario'];
     }
 
     .form-container {
-        padding: 20px;
-        margin: 0 12px;
-        border-width: 1.5px;
-    }
+    padding: 20px;
+    border-width: 1.5px;
+    /* Sintaxis: Arriba (100px) | Derecha (12px) | Abajo (0) | Izquierda (12px) */
+    margin: 100px 12px 0 12px; 
+}
 
     h2 {
         font-size: 1rem;
@@ -215,6 +218,7 @@ $codigo_usuario = $_SESSION['codigo_usuario'];
 @media (max-width: 320px) {
     .form-container {
         padding: 16px;
+        margin-top: 100px;
     }
 
     label {
