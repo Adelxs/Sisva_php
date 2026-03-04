@@ -239,35 +239,45 @@ $usuarios = json_decode($response, true);
     color: oklch(0.2 0.05 250);
 }
 
-
 @media (max-width: 768px) {
-
     .acciones {
         flex-direction: column;
         align-items: stretch;
-        justify-content: flex-start;
-        gap: 10px;
+        gap: 15px;
     }
 
+    /* Buscador y Select en una línea si hay espacio, o uno debajo del otro */
     .acciones input,
     .acciones select {
         width: 100%;
     }
 
+    /* Mantenemos los botones en horizontal o cuadrícula */
     .botones {
         display: flex;
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: row; /* Forzamos fila */
+        flex-wrap: wrap;    /* Si no caben los 3, el tercero baja solo */
+        gap: 8px;
+        justify-content: center;
     }
 
     .acciones button {
-        width: 100%;
+        /* Calculamos el ancho para que quepan 2 por fila (menos el gap) */
+        /* O puedes usar 'flex: 1' para que se estiren equitativamente */
+        flex: 1 1 140px; 
+        width: auto;
+        min-width: 140px;
+        font-size: 13px; /* Reducimos un poco la fuente para que quepan mejor */
+        padding: 8px 10px;
+        height: auto;
+        min-height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
-}
 
-@media (max-width: 768px) {
-
-    .paginacion {
+     .paginacion {
         position: static;
         margin-top: 20px;
         justify-content: center;
@@ -279,24 +289,27 @@ $usuarios = json_decode($response, true);
         height: 36px;
         font-size: 14px;
     }
+
+      .container {
+        height: auto; /* Quitamos el alto fijo para que crezca con el contenido */
+        min-height: 600px;
+    }
+
+    /* Alineamos volver y paginación uno sobre otro pero centrados */
+    .volver {
+        position: static;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .paginacion {
+        position: static;
+        width: 100%;
+        justify-content: center;
+    }
 }
 
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column-reverse; /* Paginación arriba, Volver abajo */
-        align-items: center;
-    }
-    .acciones {
-        flex-direction: column;
-    }
-    .acciones input, .acciones select, .acciones button {
-        width: 100% !important;
-    }
-}
-
-
-
-        
+ 
     </style>
 </head>
 <body>
