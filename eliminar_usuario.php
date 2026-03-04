@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Usuario</title>
     <style>
         * {
@@ -53,14 +54,13 @@
 
         /* Contenedor del Formulario */
         .container {
-            background: #fff;
-            padding: 25px;
-            width: 100%;
-            max-width: 624px;
-            border: 2px solid oklch(0.707 0.022 261.325);
-            margin-top: 50px;
-            margin-bottom: 50px;
-        }
+        background: #fff;
+        padding: 25px;
+        width: 90%; /* 90% en móviles */
+        max-width: 500px; /* Tamaño ideal para formularios */
+        border: 2px solid oklch(0.707 0.022 261.325);
+        margin: 30px auto;
+    }
 
         h2 {
             text-align: center;
@@ -133,6 +133,27 @@
             margin-top: 15px;
             color: #1e293b;
         }
+
+        @media (max-width: 480px) {
+        .navbar-inner {
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+        
+        .navbar-inner button {
+            width: 100%; /* Botón de cerrar sesión ancho completo */
+        }
+
+        .container {
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+        }
+    }
     </style>
 </head>
 <body>
@@ -154,6 +175,9 @@
         <input type="text" name="RUT" id="rut" placeholder="Ej: 12345678-9" required>
         <input type="submit" value="Eliminar Usuario">
     </form>
+    <button class="btn-volver" onclick="window.location.href='ver_usuarios.php'">
+        VOLVER ATRAS
+    </button>
 
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -173,19 +197,15 @@
         $result = json_decode($response, true);
 
         if ($httpCode === 200 && isset($result['ok'])) {
-            echo "<h3> Usuario eliminado correctamente vía API.</h3>";
+            echo "<h3> Usuario eliminado correctamente.</h3>";
         } else {
-            echo "<h3 style='color: red;'> Error al eliminar usuario</h3>";
-            if ($result) {
-                echo "<pre style='font-size: 10px; background: #eee; padding: 10px;'>" . print_r($result, true) . "</pre>";
-            }
+            echo "<h3 style='color: red;'> Usuario no existe</h3>";
+            
         }
     }
     ?>
 
-    <button class="btn-volver" onclick="window.location.href='ver_usuarios.php'">
-        VOLVER ATRAS
-    </button>
+    
 </div>
 
 </body>
