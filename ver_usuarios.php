@@ -282,13 +282,17 @@ $usuarios = json_decode($response, true);
 }
 
 @media (max-width: 768px) {
-    .volver {
-        position: static;
-        width: 100%;
-        margin-top: 20px;
+    .footer-container {
+        flex-direction: column-reverse; /* Paginación arriba, Volver abajo */
+        align-items: center;
+    }
+    .acciones {
+        flex-direction: column;
+    }
+    .acciones input, .acciones select, .acciones button {
+        width: 100% !important;
     }
 }
-
 
 
 

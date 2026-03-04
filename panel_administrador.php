@@ -330,7 +330,6 @@ if (!empty($rut_usuario)) {
         </div>
 
         <!-- CONTENIDO -->
-        <!-- CONTENIDO -->
 <main class="content">
 
     <!-- FILA SUPERIOR: 4 DIVS -->
