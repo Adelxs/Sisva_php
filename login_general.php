@@ -279,6 +279,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['totp'])) {
                 height: 46px;
             }
         }
+
+        .captcha-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    margin-top: 20px;       /* El margen de 20px solicitado */
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+/* Ajuste opcional para móviles muy pequeños */
+@media (max-width: 320px) {
+    .g-recaptcha {
+        transform: scale(0.77); /* Escala el captcha si el móvil es muy angosto */
+        transform-origin: 0 0;
+    }
+}
     </style>
 </head>
 <body>
@@ -307,7 +323,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['totp'])) {
             <?= $mostrar2FA ? 'VALIDAR 2FA' : 'INICIAR SESIÓN' ?>
         </button>
         <?php if (!$mostrar2FA): ?>
-    <div class="g-recaptcha" data-sitekey="6LdVAoAsAAAAAKCpB_-5V4-urLD4Af5WvaGNZTSU" style="margin-bottom: 10px;"></div>
+    <div class="captcha-container">
+        <div class="g-recaptcha" data-sitekey="6LdVAoAsAAAAAKCpB_-5V4-urLD4Af5WvaGNZTSU"></div>
+    </div>
 <?php endif; ?>
     </form>
 
