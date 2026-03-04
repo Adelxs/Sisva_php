@@ -11,6 +11,15 @@ $mostrar2FA = false; // Para mostrar el formulario de 2FA
 // Paso 1: Usuario ingresa RUT + contraseña
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['totp'])) {
 
+    $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LdVAoAsAAAAAJIU3QXBF1zdUF96MCpGbcaE3uNE&response=".$recaptcha_response);
+    $response_data = json_decode($verify);
+
+    if (!$response_data->success) {
+        $error = "Por favor, completa el CAPTCHA correctamente.";
+    } else {
+
+    
+
     if (!isset($_POST['rut'], $_POST['password'])) {
         $error = "Debe ingresar RUT y contraseña";
     } else {
@@ -78,6 +87,8 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     }
 }
 
+}
+
 // Paso 2: Validar código 2FA
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['totp'])) {
 
@@ -132,6 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['totp'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <title>Login</title>
     <style>
@@ -291,11 +303,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['totp'])) {
         <button type="submit" class="btnini">
             <?= $mostrar2FA ? 'VALIDAR 2FA' : 'INICIAR SESIÓN' ?>
         </button>
+        <?php if (!$mostrar2FA): ?>
+    <div class="g-recaptcha" data-sitekey="6LdVAoAsAAAAAKCpB_-5V4-urLD4Af5WvaGNZTSU" style="margin-bottom: 10px;"></div>
+<?php endif; ?>
     </form>
 
-    <?php if (!$mostrar2FA): ?>
-        <a href="recuperar_contraseña.php">¿Olvidaste tu contraseña?</a>
-    <?php endif; ?>
+    
 </div>
 
 </body>
