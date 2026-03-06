@@ -329,7 +329,7 @@ input[readonly] {
     <div class="full">
         <label>Departamento</label>
         <input type="text"
-               value="<?= htmlspecialchars($usuario['Codigo_Usuario'] ?? '') ?>"
+               value="<?= htmlspecialchars('Administración' ?? '') ?>"
                readonly>
     </div>
 
