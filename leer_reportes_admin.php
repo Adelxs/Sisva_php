@@ -7,7 +7,7 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'Administ
 }
 
 // URL del endpoint de reportes
-$apiUrl = "https://sisvaqr-production.up.railway.app/reportes";
+$apiUrl = "https://sisvaqr.onrender.com/reportes";
 
 $reportes = [];
 
@@ -193,7 +193,7 @@ function abrirModal(idReporte) {
     document.getElementById('reporteActual').value = idReporte;
     document.getElementById('modalEncargado').style.display = 'block';
 
-    fetch('https://sisvaqr-production.up.railway.app/encargados')
+    fetch('https://sisvaqr.onrender.com/encargados')
         .then(res => res.json())
         .then(data => {
             const select = document.getElementById('selectEncargado');
@@ -223,7 +223,7 @@ function asignarEncargado() {
     const idEncargado = select.value;
     const nombreEncargado = select.options[select.selectedIndex].text;
 
-    fetch(`https://sisvaqr-production.up.railway.app/reportes/${idReporte}/asignar`, {
+    fetch(`https://sisvaqr.onrender.com/reportes/${idReporte}/asignar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ID_Encargado: idEncargado })
@@ -244,7 +244,7 @@ function asignarEncargado() {
 
 function cerrarReporte(idReporte) {
     if (!confirm('¿Desea cerrar este reporte?')) return;
-    fetch(`https://sisvaqr-production.up.railway.app/reportes/${idReporte}`, {
+    fetch(`https://sisvaqr.onrender.com/reportes/${idReporte}`, {
         method: 'DELETE'
     })
     .then(res => res.json())

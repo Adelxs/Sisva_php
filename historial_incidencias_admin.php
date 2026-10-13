@@ -136,7 +136,7 @@ $codigo_usuario = $_SESSION['codigo_usuario'] ?? 'U004';
     async function cargarReportes() {
         const codigo = "<?php echo $codigo_usuario; ?>";
         try {
-            const res = await fetch(`https://sisvaqr-production.up.railway.app/reportes/usuario/${codigo}`);
+            const res = await fetch(`https://sisvaqr.onrender.com/reportes/usuario/${codigo}`);
             const data = await res.json();
 
             if (!data.ok || !data.reportes || data.reportes.length === 0) {

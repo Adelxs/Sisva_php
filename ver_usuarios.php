@@ -1,6 +1,6 @@
 <?php
 // 1️⃣ Llamar a la API
-$response = file_get_contents("https://sisvaqr-production.up.railway.app/usuarios");
+$response = file_get_contents("https://sisvaqr.onrender.com/usuarios");
 $usuarios = json_decode($response, true);
 ?>
 

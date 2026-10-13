@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['totp'])) {
             "Contraseña" => $clave
         ], JSON_UNESCAPED_UNICODE);
 
-        $ch = curl_init("https://sisvaqr-production.up.railway.app/login");
+        $ch = curl_init("https://sisvaqr.onrender.com/login");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json"]);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['totp'])) {
         "totp" => $totp
     ], JSON_UNESCAPED_UNICODE);
 
-    $ch = curl_init("https://sisvaqr-production.up.railway.app/login-2fa");
+    $ch = curl_init("https://sisvaqr.onrender.com/login-2fa");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json"]);
     curl_setopt($ch, CURLOPT_POST, true);

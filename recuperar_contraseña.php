@@ -1,5 +1,5 @@
 <?php
-$api_url = getenv('API_URL') ?: 'http://localhost:1234';
+$api_url = getenv('API_URL') ?: 'https://sisvaqr.onrender.com/';
 $mensaje = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

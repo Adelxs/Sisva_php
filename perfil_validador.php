@@ -18,7 +18,7 @@ $tipoMensaje = "error";
    OBTENER DATOS USUARIO
 ========================= */
 try {
-    $ch = curl_init("https://sisvaqr-production.up.railway.app/usuario/$codigo");
+    $ch = curl_init("https://sisvaqr.onrender.com/usuario/$codigo");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     /////////////////////////////////////////////////////////borrar
          curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             "password_nueva" => $passwordNueva
         ];
 
-        $ch = curl_init("https://sisvaqr-production.up.railway.app/usuarios/cambiar-password");
+        $ch = curl_init("https://sisvaqr.onrender.com/usuarios/cambiar-password");
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));

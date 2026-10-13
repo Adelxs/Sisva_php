@@ -131,7 +131,7 @@
             "Tipo_de_Usuario"     => $_POST['Tipo_de_Usuario']
         ];
 
-        $url = "https://sisvaqr-production.up.railway.app/usuarios";
+        $url = "https://sisvaqr.onrender.com/usuarios";
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -153,7 +153,7 @@
                 "Accion" => "Se ha registrado un usuario correctamente"
             ];
 
-            $historialUrl = "https://sisvaqr-production.up.railway.app/historial";
+            $historialUrl = "https://sisvaqr.onrender.com/historial";
             $ch = curl_init($historialUrl);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);

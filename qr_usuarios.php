@@ -7,7 +7,7 @@ try {
     $codigo = $_SESSION['codigo_usuario'] ?? null;
 
     if ($codigo) {
-        $ch = curl_init("https://sisvaqr-production.up.railway.app/usuario/$codigo");
+        $ch = curl_init("https://sisvaqr.onrender.com/usuario/$codigo");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -435,7 +435,7 @@ async function generarQR() {
     try {
         // Llamamos a la API usando el RUT
         const mensajeAccion = encodeURIComponent("Se genero QR");
-        const res = await fetch(`https://sisvaqr-production.up.railway.app/me?rut=${rut}&accion=${mensajeAccion}`);
+        const res = await fetch(`https://sisvaqr.onrender.com/me?rut=${rut}&accion=${mensajeAccion}`);
         
         const data = await res.json();
 

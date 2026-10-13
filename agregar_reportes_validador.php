@@ -303,7 +303,7 @@ document.getElementById('formReporte').addEventListener('submit', async function
     mensajeDiv.className = '';
 
     try {
-        const respuesta = await fetch('https://sisvaqr-production.up.railway.app/reportes', {
+        const respuesta = await fetch('https://sisvaqr.onrender.com/reportes', {
             method: 'POST',
             body: formData
         });

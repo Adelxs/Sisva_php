@@ -13,7 +13,7 @@ $nombre_completo = "No encontrado";
 
 if (!empty($rut_usuario)) {
     // Llamamos al nuevo endpoint que acabamos de crear
-    $url = "https://sisvaqr-production.up.railway.app/usuario_por_rut/" . urlencode($rut_usuario);
+    $url = "https://sisvaqr.onrender.com/usuario_por_rut/" . urlencode($rut_usuario);
     
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

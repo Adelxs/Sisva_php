@@ -12,7 +12,7 @@ $nombre_completo = "No encontrado";
 
 if (!empty($rut_usuario)) {
     // Llamamos al nuevo endpoint que acabamos de crear
-    $url = "https://sisvaqr-production.up.railway.app/usuario_por_rut/" . urlencode($rut_usuario);
+    $url = "https://sisvaqr.onrender.com/usuario_por_rut/" . urlencode($rut_usuario);
     
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -394,17 +394,17 @@ if (!empty($rut_usuario)) {
 async function obtenerEstadisticas() {
     try {
         // 1. Conteo de Usuarios
-        const resUsers = await fetch('https://sisvaqr-production.up.railway.app/usuarios/conteo');
+        const resUsers = await fetch('https://sisvaqr.onrender.com/usuarios/conteo');
         const dataUsers = await resUsers.json();
         if (dataUsers.ok) document.getElementById('total-usuarios').innerText = dataUsers.total;
 
         // 2. Conteo de Escaneos
-        const resQR = await fetch('https://sisvaqr-production.up.railway.app/historial/conteo-escaneos');
+        const resQR = await fetch('https://sisvaqr.onrender.com/historial/conteo-escaneos');
         const dataQR = await resQR.json();
         if (dataQR.ok) document.getElementById('total-escaneos').innerText = dataQR.total;
 
         // 3. Conteo de Reportes (Lo nuevo)
-        const resRep = await fetch('https://sisvaqr-production.up.railway.app/reportes/conteo');
+        const resRep = await fetch('https://sisvaqr.onrender.com/reportes/conteo');
         const dataRep = await resRep.json();
         if (dataRep.ok) {
             document.getElementById('total-reportes').innerText = dataRep.total;
@@ -415,7 +415,7 @@ async function obtenerEstadisticas() {
     }
 
     // 4. Obtener Historial de Acciones
-const resHist = await fetch('https://sisvaqr-production.up.railway.app/historial/acciones');
+const resHist = await fetch('https://sisvaqr.onrender.com/historial/acciones');
 const dataHist = await resHist.json();
 
 if (dataHist.ok) {
@@ -436,7 +436,7 @@ if (dataHist.ok) {
 }
 
 // 5. Conteo Total de Acciones (Historial)
-const resHistTotal = await fetch('https://sisvaqr-production.up.railway.app/historial/conteo-total');
+const resHistTotal = await fetch('https://sisvaqr.onrender.com/historial/conteo-total');
 const dataHistTotal = await resHistTotal.json();
 if (dataHistTotal.ok) {
     document.getElementById('total-acciones').innerText = dataHistTotal.total;

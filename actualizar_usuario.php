@@ -186,7 +186,7 @@
         ];
 
         $rut = $_POST['RUT'];
-        $url = "https://sisvaqr-production.up.railway.app/usuarios/rut/" . urlencode($rut);
+        $url = "https://sisvaqr.onrender.com/usuarios/rut/" . urlencode($rut);
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
