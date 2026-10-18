@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['totp'])) {
 
    $recaptcha_response = $_POST['g-recaptcha-response'] ?? '';
 
-    $secret = "6LcPe_UtAAAAAGYOHlo1OXVntH1Rlnmpt4rsTOsI";
+    $secret = "6LclffUtAAAAAN12M2VQIrkCzjcxb10cWDsifvcK";
     $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$recaptcha_response);
     $response_data = json_decode($verify);
 
@@ -322,7 +322,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['totp'])) {
         </button>
         <?php if (!$mostrar2FA): ?>
     <div class="captcha-container">
-        <div class="g-recaptcha" data-sitekey="6LcPe_UtAAAAAKsBLk41W7mUJ0yydYu4PjoDHjCo"></div>
+        <div class="g-recaptcha" data-sitekey="6LclffUtAAAAADiM49ZL0YgpejBkrCZGezB4Ms8P"></div>
     </div>
 <?php endif; ?>
     </form>
