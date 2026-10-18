@@ -141,13 +141,18 @@
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
         $response = curl_exec($ch);
+
+        $curlError = curl_error($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
         curl_close($ch);
 
-        $result = json_decode($response, true);
+        $result = is_string($response)
+            ? json_decode($response, true)
+            : null;
 
         // --- Registrar en historial si usuario creado ---
-        if ($httpCode === 200 && isset($result['ok'])) {
+        if ($httpCode >= 200 && $httpCode < 300 && isset($result['ok']) && $result['ok'] === true) {
             $historialData = [
                 "Codigo_Usuario" => $_POST['Codigo_Usuario'],
                 "Accion" => "Se ha registrado un usuario correctamente"
@@ -167,11 +172,43 @@
 
             echo "<h3>Usuario registrado correctamente.</h3>";
         } else {
-            echo "<h3 style='color: red;'>Error al registrar usuario</h3>";
-            if ($result) {
-                echo "<pre>" . print_r($result, true) . "</pre>";
-            }
-        }
+    echo "<h3 style='color:red;'>Error al registrar usuario</h3>";
+
+    echo "<pre>";
+
+    echo "Código HTTP: " . (int)$httpCode . "\n";
+
+    if ($curlError !== '') {
+        echo "Error de conexión cURL: "
+            . htmlspecialchars($curlError, ENT_QUOTES, 'UTF-8')
+            . "\n";
+    }
+
+    if (is_array($result)) {
+        echo "Respuesta de la API:\n";
+
+        echo htmlspecialchars(
+            json_encode(
+                $result,
+                JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE
+            ),
+            ENT_QUOTES,
+            'UTF-8'
+        );
+    } elseif (is_string($response)) {
+        echo "Respuesta recibida:\n";
+
+        echo htmlspecialchars(
+            substr($response, 0, 2000),
+            ENT_QUOTES,
+            'UTF-8'
+        );
+    } else {
+        echo "La API no devolvió una respuesta válida.";
+    }
+
+    echo "</pre>";
+}
     }
     ?>
 
