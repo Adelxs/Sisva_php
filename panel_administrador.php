@@ -309,7 +309,7 @@ if (!empty($rut_usuario)) {
     </ul>
 
     <!-- Botón Cerrar Sesión -->
-    <button class="logout-btn" type="button" onclick="window.location.href='lucia.php'">
+    <button class="logout-btn" type="button" onclick="window.location.href='login_general.php'">
         CERRAR SESIÓN
     </button>
 </nav>
