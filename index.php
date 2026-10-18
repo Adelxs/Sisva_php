@@ -1,5 +1,6 @@
 <?php
-// ─── Script de inicialización — correr UNA SOLA VEZ ─────────────────────────
+header("Location: /login_general.php");
+exit;// ─── Script de inicialización — correr UNA SOLA VEZ ─────────────────────────
 // Crea las tablas e inserta datos base en la BD de Filess.io
 
 $host      = getenv('DB_HOST')     ?: 'localhost';
