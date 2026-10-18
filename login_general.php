@@ -9,7 +9,7 @@ $mostrar2FA = false; // Para mostrar el formulario de 2FA
 // Paso 1: Usuario ingresa RUT + contraseña
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['totp'])) {
 
-    $recaptcha_response = $_POST['g-recaptcha-response'] ?? '';
+   /* $recaptcha_response = $_POST['g-recaptcha-response'] ?? '';
 
     $secret = "6LdVAoAsAAAAAJIU3QXBF1zdUF96MCpGbcaE3uNE";
     $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$recaptcha_response);
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['totp'])) {
 
     if (!$response_data->success) {
         $error = "Por favor, completa el CAPTCHA correctamente.";
-    } else {
+    } else {*/
 
     
 
@@ -88,7 +88,7 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     }
 }
 
-}
+/*}*/
 
 // Paso 2: Validar código 2FA
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['totp'])) {
